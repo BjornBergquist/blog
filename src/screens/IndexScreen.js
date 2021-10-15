@@ -5,7 +5,6 @@ import { Feather } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const IndexScreen = ({navigation}) => {
-    console.log(navigation);
     const {state, addBlogPost, deleteBlogPost} = useContext(Context)
 
     return (
@@ -16,9 +15,11 @@ const IndexScreen = ({navigation}) => {
                 keyExtractor={(blogPost) => blogPost.id}
                 renderItem={({item, index}) => {
                     return (
-                        <TouchableOpacity onPress={() => navigation.navigate('Show', {id: item.id})}>
+                        <TouchableOpacity 
+                            onPress={() => navigation.navigate('Show', {id: item.id})}
+                        >
                             <View style={index === 0 ? [styles.first, styles.row] : styles.row}>
-                                <Text style={styles.title}>{item.title}</Text>
+                                <Text style={styles.title}>{item.title} - {item.id}</Text>
                                 <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                                     <Feather name="trash-2" style={styles.icon}/>
                                 </TouchableOpacity>
