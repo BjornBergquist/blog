@@ -2,21 +2,23 @@ import React, {useContext} from 'react'
 import { StyleSheet, Text, View, FlatList, Button } from 'react-native'
 import {Context} from '../context/BlogContext'
 import { Feather } from '@expo/vector-icons'; 
-import { Children } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const IndexScreen = () => {
-    const {state, addBlogPost} = useContext(Context)
+    const {state, addBlogPost, deleteBlogPost} = useContext(Context)
 
     return (
         <View >
             <Button style={styles.button} title="Add Post" onPress={addBlogPost}/>
             <FlatList 
                 data={state}
-                keyExtractor={(blogPost) => blogPost.title}
+                keyExtractor={(blogPost) => blogPost.id}
                 renderItem={({item, index}) => {
                     return <View style={index === 0 ? [styles.first, styles.row] : styles.row}>
                         <Text style={styles.title}>{item.title}</Text>
-                        <Feather name="trash-2" style={styles.icon}/>
+                        <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                            <Feather name="trash-2" style={styles.icon}/>
+                        </TouchableOpacity>
                     </View>
                 }}
             />
