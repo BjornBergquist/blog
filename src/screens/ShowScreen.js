@@ -23,7 +23,11 @@ const styles = StyleSheet.create({})
 ShowScreen.navigationOptions = ({navigation}) => {
     return {
         headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
+            <TouchableOpacity 
+                onPress={() => 
+                    navigation.navigate('Edit', {id: navigation.getParam('id')})
+                }
+            >
                 <Entypo name="edit" size={35} />
             </TouchableOpacity>
         )
